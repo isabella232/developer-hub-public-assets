@@ -69,7 +69,7 @@
 								}
 							]
 						},
-						"description": "Returns a list of the values of the specified field as well as the related contact identifiers (`id`). See #docTextSection:WzxTSxGPNbsq8zWjX for details.\n\n**Example:** The field identifier *1* returns the first names of all contacts.\n\n<<legacyIncompatibilityNoteQuery>>"
+						"description": "Returns a list of the values of the specified field as well as the related contact identifiers (`id`).\n\n**Example:** The field identifier *1* returns the first names of all contacts.\n\n**Note:** Due to limitations of API specification languages, dynamic keys are not yet supported in query strings on the interactive demo page (**Try it out**)."
 					},
 					"response": []
 				},
@@ -109,7 +109,7 @@
 								"getdata"
 							]
 						},
-						"description": "Returns the field values for the contacts specified by either their internal IDs or by a custom property.\n\n<<contactIdsAndPropertiesRecommendation>>\n\n<<contactIdsAndPropertiesNote>>"
+						"description": "Returns the field values for the contacts specified by either their internal IDs or by a custom property.\n\nIt is recommended to use the `id` or `uid` fields to identify contacts in order to avoid conflicts when using a non-unique field, such as `email`."
 					},
 					"response": []
 				},
@@ -155,7 +155,7 @@
 								}
 							]
 						},
-						"description": "Updates multiple contacts, or creates them if they do not exist.\n\n<<contactIdsAndPropertiesRecommendation>>\n\n><<contactIdsAndPropertiesNote>>\n\n**Notes:**\n- The maximum payload size is 8 MB, therefore the maximum number of new contacts per call depends on the amount of data per contact.\n- The maximum batch size is 1000 contacts per call.\n\nSee #endpoint:R9LGcJ7SyhSXgNQjX for more information.\n\n<<legacyIncompatibilityNoteBody>>"
+						"description": "Updates multiple contacts, or creates them if they do not exist.\n\nIt is recommended to use the `id` or `uid` fields to identify contacts in order to avoid conflicts when using a non-unique field, such as `email`.\n\n**Notes:**\n- The maximum payload size is 8 MB, therefore the maximum number of new contacts per call depends on the amount of data per contact.\n- The maximum batch size is 1000 contacts per call.\n\n**Note:** Due to limitations of API specification languages, dynamic keys are indicated by curly brackets or by a regex pattern."
 					},
 					"response": []
 				},
@@ -195,7 +195,7 @@
 								"contact"
 							]
 						},
-						"description": "Creates new contacts, returns their automatically generated unique identifier (`id`), and maps their data to the relevant fields using the respective field identifiers. For details, see #docTextSection:WzxTSxGPNbsq8zWjX.\n\n**Notes:**\n- The maximum payload size is 10 MB, therefore the maximum number of new contacts per call depends on the amount of data per contact.\n- The maximum batch size is 1000 contacts per call.\n\n<<legacyIncompatibilityNoteBody>>"
+						"description": "Creates new contacts, returns their automatically generated unique identifier (`id`), and maps their data to the relevant fields using the respective field identifiers.\n\n**Notes:**\n- The maximum payload size is 10 MB, therefore the maximum number of new contacts per call depends on the amount of data per contact.\n- The maximum batch size is 1000 contacts per call.\n\n**Note:** Due to limitations of API specification languages, dynamic keys are indicated by curly brackets or by a regex pattern."
 					},
 					"response": []
 				},
@@ -236,7 +236,7 @@
 								"delete"
 							]
 						},
-						"description": "Deletes a single contact.\n\n**Important:** This action cannot be reverted, and removes all existing data associated with the contact. To *unsubscribe* contacts, set their opt-in status to *false* instead.\n\n<<legacyIncompatibilityNoteBody>>"
+						"description": "Deletes a single contact.\n\n**Important:** This action cannot be reverted, and removes all existing data associated with the contact. To *unsubscribe* contacts, set their opt-in status to *false* instead.\n\n**Note:** Due to limitations of API specification languages, dynamic keys are indicated by curly brackets or by a regex pattern."
 					},
 					"response": []
 				},
@@ -278,7 +278,7 @@
 								":keyId=:keyValue"
 							]
 						},
-						"description": "Returns the internal identifier of a contact by the specified field and its value. For details about contact identifiers, see #docTextSection:WzxTSxGPNbsq8zWjX."
+						"description": "Returns the internal identifier of a contact by the specified field and its value."
 					},
 					"response": []
 				},
@@ -319,7 +319,7 @@
 								"checkids"
 							]
 						},
-						"description": "Generates a list of existing contacts and errors indexed by the specified key identifier.\n\nFor details about contact identifiers, see #docTextSection:WzxTSxGPNbsq8zWjX.\n\nErrors are collected in the following cases:\n- The provided key identifier is invalid\n- No contact is found\n- More than one contact is found with the same key value"
+						"description": "Generates a list of existing contacts and errors indexed by the specified key identifier.\n\nErrors are collected in the following cases:\n- The provided key identifier is invalid\n- No contact is found\n- More than one contact is found with the same key value"
 					},
 					"response": []
 				},
@@ -448,7 +448,7 @@
 								"field"
 							]
 						},
-						"description": "Creates a new field in the contact database. This Please note that you cannot create single- or multi-choice fields via the API, nor can you create more than one field at a time.\n\n**Note:** The endpoint replicates the functionality of the **Field Generator** in the <<appName>>. To manage fields, go to **Admin** > **Field Editor** > **New**."
+						"description": "Creates a new field in the contact database. This Please note that you cannot create single- or multi-choice fields via the API, nor can you create more than one field at a time.\n\n**Note:** The endpoint replicates the functionality of the **Field Generator** in the Emarsys application. To manage fields, go to **Admin** > **Field Editor** > **New**."
 					},
 					"response": []
 				},
@@ -492,7 +492,7 @@
 								":languageId"
 							]
 						},
-						"description": "Generates a list of all available options for any given single- or multi-choice field.\n\n**Tip**:  See #endpoint:42WeXWqM4MzMSzANK for how to list forms and newsletters."
+						"description": "Generates a list of all available options for any given single- or multi-choice field."
 					},
 					"response": []
 				},
@@ -1148,7 +1148,7 @@
 								"filter"
 							]
 						},
-						"description": "Creates a segment based on the specified contact and email behavior criteria.\n\n### Overview\nCritera are represented as JSON object nodes in the request body. The relationship between the nodes is defined by the following:\n- Grouping operators link filter conditions with a logical AND or OR operator using the `type` property.\n- The node hierarchy correspond to the structure of the filters.\n\nFor easier understanding of the nested contact criteria, see the configuration of filter conditions in the <<appName>>:\n\n![Filter conditions in the <<appName>>](https://raw.githubusercontent.com/emartech/developer-hub-public-assets/master/assets/images/filter-conditions.png \"Filter conditions in the <<appName>>\")\n\n### Node Structure\nNodes can either be conjunctive or a criteria nodes. The function of each node is defined in the `type` property.\n- **Conjunctive nodes:** Nodes with a grouping operator `and` or `or` establish the relationship between parent and children nodes, and do not have any other property.\n- **Criteria nodes:** Nodes with the `criteria` property define a filter condition.\n\n| Criterion Type | Mandatory Properties | Optional Properties |\n| --- | --- | --- |\n| Contact criteria | - field<br>- operator<br>- value ||\n| Behavior criteria | - criteria | - time_restriction |\n\nEither one contact or behavior criteria must be specified in the request. See the Request Body section for details.\n\n**Note:** Mobile behavior, geolocation, and Smart Insight criteria are not supported using the API at the moment."
+						"description": "Creates a segment based on the specified contact and email behavior criteria.\n\n### Overview\nCritera are represented as JSON object nodes in the request body. The relationship between the nodes is defined by the following:\n- Grouping operators link filter conditions with a logical AND or OR operator using the `type` property.\n- The node hierarchy correspond to the structure of the filters.\n\nFor easier understanding of the nested contact criteria, see the configuration of filter conditions in the Emarsys application:\n\n![Filter conditions in the Emarsys application](https://raw.githubusercontent.com/emartech/developer-hub-public-assets/master/assets/images/filter-conditions.png \"Filter conditions in the Emarsys application\")\n\n### Node Structure\nNodes can either be conjunctive or a criteria nodes. The function of each node is defined in the `type` property.\n- **Conjunctive nodes:** Nodes with a grouping operator `and` or `or` establish the relationship between parent and children nodes, and do not have any other property.\n- **Criteria nodes:** Nodes with the `criteria` property define a filter condition.\n\n| Criterion Type | Mandatory Properties | Optional Properties |\n| --- | --- | --- |\n| Contact criteria | - field<br>- operator<br>- value ||\n| Behavior criteria | - criteria | - time_restriction |\n\nEither one contact or behavior criteria must be specified in the request. See the Request Body section for details.\n\n**Note:** Mobile behavior, geolocation, and Smart Insight criteria are not supported using the API at the moment."
 					},
 					"response": []
 				},
@@ -1271,7 +1271,7 @@
 								"count"
 							]
 						},
-						"description": "Provides the number of contacts in the specified segment.\n\n**Note:** <<processingDelayNote>>"
+						"description": "Provides the number of contacts in the specified segment.\n\n**Note:** This endpoint does not return data immediately because it requires further processing."
 					},
 					"response": []
 				},
@@ -1323,7 +1323,7 @@
 								}
 							]
 						},
-						"description": "Generates a list of contacts after a specific segment (filter) has been applied.\n\n**Note:** <<processingDelayNote>>"
+						"description": "Generates a list of contacts after a specific segment (filter) has been applied.\n\n**Note:** This endpoint does not return data immediately because it requires further processing."
 					},
 					"response": []
 				},
@@ -1447,7 +1447,7 @@
 								"contact_criteria"
 							]
 						},
-						"description": "Updates the contact criteria of a specific segment.\n\nFor details on how the response body is structured, see #endpoint:E7q662Tf4WPhTEMx2 endpoint."
+						"description": "Updates the contact criteria of a specific segment."
 					},
 					"response": []
 				},
@@ -1844,7 +1844,7 @@
 								"email"
 							]
 						},
-						"description": "Creates an email campaign with the specified parameters.\n\n**Note:** For further information about creating emails with transaction-specific content, see Using the API to Create Triggered Messages and Capturing Transactional Content. For the list of possible campaign related placeholders, see #docTextSection:64XeZpQwPy9JNh2EN."
+						"description": "Creates an email campaign with the specified parameters.\n\n**Note:** For further information about creating emails with transaction-specific content, see Using the API to Create Triggered Messages and Capturing Transactional Content."
 					},
 					"response": []
 				},
@@ -1931,7 +1931,7 @@
 								"language"
 							]
 						},
-						"description": "Returns a list of languages available for creating emails. For a list of supported languages, see #docTextSection:uBBJixAaRTpH5WLAW."
+						"description": "Returns a list of languages available for creating emails."
 					},
 					"response": []
 				},
@@ -2013,7 +2013,7 @@
 								"version"
 							]
 						},
-						"description": "Creates a new child version of the specified email campaign.\n\nVersioned campaigns are optimal for A/B testing, and can be manipulated as a separate email campaign through the API.\n\n**Tip:** List all versions of an email campaign with `root_campaign_id` filter on the #endpoint:ZnJrcXTTbDj9DhpxB endpoint."
+						"description": "Creates a new child version of the specified email campaign.\n\nVersioned campaigns are optimal for A/B testing, and can be manipulated as a separate email campaign through the API."
 					},
 					"response": []
 				},
@@ -2227,7 +2227,7 @@
 								"updatesource"
 							]
 						},
-						"description": "You must set the **Recipient source** setting to **Using the API** in the <<appName>> to assign a segment or a contact list to an email campaign using the API.\n\nThe recipient source is filtered by the specified segment or contact list. To narrow the recipient list further, provide exclusion filters.\n\n**Important:** If you do not explicitly set any exclusion filters, all existing exclusions are removed from the campaign.\n\n**Warning:** The recipient source parameter can only be changed once if the previous value was set to **Using the API**."
+						"description": "You must set the **Recipient source** setting to **Using the API** in the Emarsys application to assign a segment or a contact list to an email campaign using the API.\n\nThe recipient source is filtered by the specified segment or contact list. To narrow the recipient list further, provide exclusion filters.\n\n**Important:** If you do not explicitly set any exclusion filters, all existing exclusions are removed from the campaign.\n\n**Warning:** The recipient source parameter can only be changed once if the previous value was set to **Using the API**."
 					},
 					"response": []
 				},
@@ -2399,7 +2399,7 @@
 								"launch"
 							]
 						},
-						"description": "Initiates the launch of an existing email campaign. The actual launch takes place once the request is processed.\n\n**Important:** <<asyncOperationNote>> Poll the #endpoint:m4CXQxbJw2y8SZPwv endpoint to track the launch progress. Check the `api_status` and `api_error` parameters for the current status.\n\n**Tip:** Configure the recipient segment or contact list using the #endpoint:YjWFKprHHgY2DAuYG endpoint.\n\n**Note:** A successful launch request may result in a failed launch, if the campaign is not properly configured. For example, a missing email subject or unspecified recipient list prevents a launch."
+						"description": "Initiates the launch of an existing email campaign. The actual launch takes place once the request is processed.\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier. Poll the Get Email Campaign Data endpoint to track the launch progress. Check the `api_status` and `api_error` parameters for the current status.\n\n**Tip:** Configure the recipient segment or contact list using the Create an Email Campaign endpoint.\n\n**Note:** A successful launch request may result in a failed launch, if the campaign is not properly configured. For example, a missing email subject or unspecified recipient list prevents a launch."
 					},
 					"response": []
 				},
@@ -2481,7 +2481,7 @@
 								"responses"
 							]
 						},
-						"description": "Returns a list of contacts based on the requested response metrics or deliverability status. For example, it queries all contacts in the specified campaign who opened emails in the specified timeframe.\n\n<<metricsDeliverabilityNote>>\n\n**Important:** <<asyncOperationNote>>. Poll the #endpoint:8gdtTPZGwvNx3GDPZ endpoint using the returned query identifier for metrics and deliverability data.\n\n**Note:** This endpoint is rate limited and accepts only one request per minute."
+						"description": "Returns a list of contacts based on the requested response metrics or deliverability status. For example, it queries all contacts in the specified campaign who opened emails in the specified timeframe.\n\nFor more information about response metrics and deliverability, see [Email Response Metrics Explained](https://help.emarsys.com/hc/en-us/articles/115005132729).\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier.. Poll the Get Email Response Metrics and Deliverability Results endpoint using the returned query identifier for metrics and deliverability data.\n\n**Note:** This endpoint is rate limited and accepts only one request per minute."
 					},
 					"response": []
 				},
@@ -2523,7 +2523,7 @@
 								"responses"
 							]
 						},
-						"description": "Returns a list of contacts requested on the #endpoint:h2A99eCtEPHhXZnKe endpoint.\n\n<<metricsDeliverabilityNote>>\n\n**Note:** The results are available for two hours after the initial query."
+						"description": "Returns a list of contacts requested on the Query Email Response Metrics and Deliverability endpoint.\n\nFor more information about response metrics and deliverability, see [Email Response Metrics Explained](https://help.emarsys.com/hc/en-us/articles/115005132729).\n\n**Note:** The results are available for two hours after the initial query."
 					},
 					"response": []
 				},
@@ -2579,7 +2579,7 @@
 								}
 							]
 						},
-						"description": "Returns the summary of the responses of a launched, paused, activated or deactivated email campaign.\n\nAcquire the necessary contact identifiers on the #endpoint:8gdtTPZGwvNx3GDPZ endpoint."
+						"description": "Returns the summary of the responses of a launched, paused, activated or deactivated email campaign.\n\nAcquire the necessary contact identifiers on the Get Email Response Metrics and Deliverability Results endpoint."
 					},
 					"response": []
 				},
@@ -3643,7 +3643,7 @@
 								}
 							]
 						},
-						"description": "Once an email is sent it typically generates one or more events, such as *bounce*, *open*, *click*, *spam complaint*, or *unsubscribe*. Analyze and track events to learn how recipients interact with your emails as well as to keep your contact database up-to-date.\n\n>**Note:** <<requestMaximumTimeInterval>>\n\nSending an email does not guarantee its delivery. A *bounce* event indicates that an email cannot be delivered. Query *bounce* and *sent* events to track whether the customer received the email.\n\n\n### Querying Events\nEach event type is available through its own resources. All resources work the same way and accept the same parameters.\n\n**Tip:** It is good industry practice to download event data at regular intervals (for example every 2 hours).\n\n#### Querying Sent Emails\n\nUse the *sent* event type to check a given timeframe if and when a mail was forwarded by the system to a specific recipient. Querying sent events is only offered to support a fast lookup option for a specific recipient. It is not intended for querying all sent recipients for a specific timeframe, because this information is avilable on user side. For details, see #endpoint:cZDXAB3drTND4HZS4.\n\n#### Querying Bounces\n\nQuerying bounces adds an additional column to the response, called `bounce_code`. This column indicates the encountered bounce type, as follows:\n\n| Bounce Type | Description |\n| --- | --- |\n| block | Block bounce |\n| hard | Hard bounce |\n| soft | Soft bounce |\n| suppressed | Sending suppression due to filtering |\n| invalid_address | Mails not sent due to an invalid email address |\n\n#### Querying Clicks\n\nReturns an additional `url` column that contains the target URL of the clicked link.\n\n#### Querying Unsubscribes\n\nReturns an additional `field_id` column that contains the identifier of the unsubscribe field. It is useful if more than one unsubscribe field is configured for the account (the default value is zero).\n\n\n### Connecting Event Data to Contact Data\nUse the `external_id` field to connect the mail event data to the contact data on your end. The content of the field is unique for each recipient on your side and will be delivered along with other fields when querying mail events.\n\nThe `external_id` field also allows you to uniquely identify a recipient, if the email address alone is not sufficient to do so.\n\nExample use cases include the following:\n- The same contact has multiple accounts in your environment.\n- The same contact registers for an account, unregisters and registers again with the same email address.\n\n#### Using External Identifiers\n1. Add the `external_id` field to the **Assigned Fields** of the respective email template.\n2. Pass the `external_id` together with other fields on appending data to the respective mail stream.\n\n\n## Response\n\n### Format\n\nEvents are returned in the following CSV format:\n\n| Column | Description |\n| --- | --- |\n| mail_stream_id | The identifier of the mail stream the mail was sent through. |\n| recipient_id | The identifier of the recipient to whom the mail was sent (the same as returned when posting the recipients). |\n| timestamp | The time of the event as a ISO8601 timestamp. |\n| email | The email address of the recipient. |\n| external_id | Additional identifier to be included in the recipient data for linking the mail event data to the recipient data on your end. |\n\n### Compression\n\nIt is good practice to use compression in order to save bandwidth and download data faster. If your system handles gzip compression, include the HTTP header `Accept-Encoding: gzip` in the request. If requested, the response is compressed and the HTTP header `Content-Encoding: gzip` is present in the response.\n\n### Examples\n\n#### Sent Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id\nTest_MX_V4,506801269562671104,2016-07-12 10:09:33.343+02,john.doe@example.com,\nTest_MX_V4,290628492129730560,2016-07-12 10:14:11.675+02,john.doe@example.com,\nAT_MV_V2,506801237568520192,2016-07-12 09:37:47.5+02,john.doe@example.com,\nAT_MV_V2,218570862205337600,2016-07-12 09:38:34.732+02,john.doe@example.com,\nAT_MV_V2,74455675136114688,2016-07-12 09:39:32.788+02,john.doe@example.com,\nAT_MV_V2,506801241527943168,2016-07-12 09:41:41.992+02,john.doe@example.com,\nAT_MV_V2,74455678726438912,2016-07-12 09:43:06.954+02,john.doe@example.com,\n```\n\n#### Bounce Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,bounce_code\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,block\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,suppressed\n```\n\n#### Open Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Click Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,url,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Unsubscribe Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,field_id\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,0\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,0\n```"
+						"description": "Once an email is sent it typically generates one or more events, such as *bounce*, *open*, *click*, *spam complaint*, or *unsubscribe*. Analyze and track events to learn how recipients interact with your emails as well as to keep your contact database up-to-date.\n\n>**Note:** The maximum number of requests per hour is 1000.\n\nSending an email does not guarantee its delivery. A *bounce* event indicates that an email cannot be delivered. Query *bounce* and *sent* events to track whether the customer received the email.\n\n\n### Querying Events\nEach event type is available through its own resources. All resources work the same way and accept the same parameters.\n\n**Tip:** It is good industry practice to download event data at regular intervals (for example every 2 hours).\n\n#### Querying Sent Emails\n\nUse the *sent* event type to check a given timeframe if and when a mail was forwarded by the system to a specific recipient. Querying sent events is only offered to support a fast lookup option for a specific recipient. It is not intended for querying all sent recipients for a specific timeframe, because this information is avilable on user side.\n\n#### Querying Bounces\n\nQuerying bounces adds an additional column to the response, called `bounce_code`. This column indicates the encountered bounce type, as follows:\n\n| Bounce Type | Description |\n| --- | --- |\n| block | Block bounce |\n| hard | Hard bounce |\n| soft | Soft bounce |\n| suppressed | Sending suppression due to filtering |\n| invalid_address | Mails not sent due to an invalid email address |\n\n#### Querying Clicks\n\nReturns an additional `url` column that contains the target URL of the clicked link.\n\n#### Querying Unsubscribes\n\nReturns an additional `field_id` column that contains the identifier of the unsubscribe field. It is useful if more than one unsubscribe field is configured for the account (the default value is zero).\n\n\n### Connecting Event Data to Contact Data\nUse the `external_id` field to connect the mail event data to the contact data on your end. The content of the field is unique for each recipient on your side and will be delivered along with other fields when querying mail events.\n\nThe `external_id` field also allows you to uniquely identify a recipient, if the email address alone is not sufficient to do so.\n\nExample use cases include the following:\n- The same contact has multiple accounts in your environment.\n- The same contact registers for an account, unregisters and registers again with the same email address.\n\n#### Using External Identifiers\n1. Add the `external_id` field to the **Assigned Fields** of the respective email template.\n2. Pass the `external_id` together with other fields on appending data to the respective mail stream.\n\n\n## Response\n\n### Format\n\nEvents are returned in the following CSV format:\n\n| Column | Description |\n| --- | --- |\n| mail_stream_id | The identifier of the mail stream the mail was sent through. |\n| recipient_id | The identifier of the recipient to whom the mail was sent (the same as returned when posting the recipients). |\n| timestamp | The time of the event as a ISO8601 timestamp. |\n| email | The email address of the recipient. |\n| external_id | Additional identifier to be included in the recipient data for linking the mail event data to the recipient data on your end. |\n\n### Compression\n\nIt is good practice to use compression in order to save bandwidth and download data faster. If your system handles gzip compression, include the HTTP header `Accept-Encoding: gzip` in the request. If requested, the response is compressed and the HTTP header `Content-Encoding: gzip` is present in the response.\n\n### Examples\n\n#### Sent Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id\nTest_MX_V4,506801269562671104,2016-07-12 10:09:33.343+02,john.doe@example.com,\nTest_MX_V4,290628492129730560,2016-07-12 10:14:11.675+02,john.doe@example.com,\nAT_MV_V2,506801237568520192,2016-07-12 09:37:47.5+02,john.doe@example.com,\nAT_MV_V2,218570862205337600,2016-07-12 09:38:34.732+02,john.doe@example.com,\nAT_MV_V2,74455675136114688,2016-07-12 09:39:32.788+02,john.doe@example.com,\nAT_MV_V2,506801241527943168,2016-07-12 09:41:41.992+02,john.doe@example.com,\nAT_MV_V2,74455678726438912,2016-07-12 09:43:06.954+02,john.doe@example.com,\n```\n\n#### Bounce Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,bounce_code\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,block\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,suppressed\n```\n\n#### Open Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Click Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,url,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Unsubscribe Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,field_id\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,0\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,0\n```"
 					},
 					"response": []
 				},
@@ -3688,7 +3688,7 @@
 								":mailStreamId"
 							]
 						},
-						"description": "Emails are sent by appending data to a mail stream. As a mail stream contains a snapshot of an email template, it only needs to inclue data specific to the recipient, such as their email address or first name.\n\n**Important:** <<contentTypeCsvRequestNote>>\n\n\nWhen the request is processed, the data is validated. If the payload passes verification, the mails are queued for sending and the endpoint returns a new unique identifier for each recipient.\n\n### Limits\n\nAppending data to a mail stream is subject to the following limits.\n\n| Limit | Threshold |\n| --- | ---: |\n| Maximum number of recipient fields | 100 |\n| Maximum allowed characters per field name | 63 |\n| Maximum number of characters allowed for a single recipient record | 4000 |\n| Maximum number of recipients per request | 1000 |\n| Maximum total number cases in a mail template | 1000 |\n\n**Note:** Contact Emarsys support if these limits are not sufficient for your needs.\n\n### Request Example\nThis example request contains one valid and one invalid recipient record.\n\n```\nEMAIL,FIRSTNAME\n kaylee@example.com,Kaywinnet\n invalid@example.com\n```\n\n### Response Example\nThis example response contains one valid and one invalid recipient record.\n```\nline,recipient_id,error\n 2,995893849,\"\"\n 3,,\"Invalid number of columns.\"\n```\n\nRecipient records are validated in the request. Validation errors are returned in the response as follows:\n\n| Column | Description |\n| --- | --- |\n| error | Reason for the failure |\n| recipient_id | n/a |\n\nIf the record passes validation, the response contains the following:\n\n| Column | Description |\n| --- | --- |\n| error | n/a |\n| recipient_id | The numeric identifier of the recipient generated automatically by the system |\n\n**Important:** Regardless of the success or failure of the validation, the `line` column always contains the line number where the related recipient record started within the request. According to the request example, the first recipient record starts at line *2* and the second recipient record at line *3*.\n\n**Do not** interpret the values in the `line` column as the recipient record counter.\n- The entry order in the response is not guaranteed, because the location is clearly defined by the line number.\n- Using line breaks within a single field or invalid text qualifiers may result in several records being parsed as one.\n\n### Recipient-specific Attachments\n\nIn typical use, attachments are added to a template are automatically included for all recipients. If recipient-specific attachments are required, it is possible to include them in the request to the mail stream endpoint.\n\nTo do so, send your request in JSON in the body, and change the `Content-Type` HTTP header to `application/json`.\n\n**Note:** It is possible to mix template and recipient attachments. If they share the same name, the recipient attachment overrides the template.\n\n**Important:** The content of the attachment must be base64-encoded.\n\n#### Request Example\n\n```json\n{\n   \"recipients\": [\n       {\n           \"fields\": {\n               \"EMAIL\": \"kaylee@example.com\",\n               \"FIRSTNAME\": \"Kaywinnet\"\n           },\n           \"attachments\": [\n               {\n                   \"name\": \"receipt.pdf\",\n                   \"content_type\": \"application/pdf\",\n                   \"content\": \"fVIOdiIMBLWUKFq807SGJaZyazE6zfBeBT4geniY2AlfVuEVJFRDha/Z4sBRJbHlFP5TqOBov8Ex530RC+q6Y8m3ai5VwPUpsQ2oD0CeRrJNGU+ZdDxPlzNXjaNA2endrukkKJyKyV4ueZxnE/GLQe+tkr1AxHQ4XJKH\"\n               }\n           ]\n       }\n   ]\n}\n```\n\n#### Response Example\n\n```json\n{\n    \"result\": [\n        {\n            \"recipient_id\": \"123456789\",\n            \"line\": 1\n        }\n    ]\n}\n```"
+						"description": "Emails are sent by appending data to a mail stream. As a mail stream contains a snapshot of an email template, it only needs to inclue data specific to the recipient, such as their email address or first name.\n\n**Important:** This endpoint consumes a CSV file. Set the *Content-Type* HTTP header of the request to `text/csv`.\n\n\nWhen the request is processed, the data is validated. If the payload passes verification, the mails are queued for sending and the endpoint returns a new unique identifier for each recipient.\n\n### Limits\n\nAppending data to a mail stream is subject to the following limits.\n\n| Limit | Threshold |\n| --- | ---: |\n| Maximum number of recipient fields | 100 |\n| Maximum allowed characters per field name | 63 |\n| Maximum number of characters allowed for a single recipient record | 4000 |\n| Maximum number of recipients per request | 1000 |\n| Maximum total number cases in a mail template | 1000 |\n\n**Note:** Contact Emarsys support if these limits are not sufficient for your needs.\n\n### Request Example\nThis example request contains one valid and one invalid recipient record.\n\n```\nEMAIL,FIRSTNAME\n kaylee@example.com,Kaywinnet\n invalid@example.com\n```\n\n### Response Example\nThis example response contains one valid and one invalid recipient record.\n```\nline,recipient_id,error\n 2,995893849,\"\"\n 3,,\"Invalid number of columns.\"\n```\n\nRecipient records are validated in the request. Validation errors are returned in the response as follows:\n\n| Column | Description |\n| --- | --- |\n| error | Reason for the failure |\n| recipient_id | n/a |\n\nIf the record passes validation, the response contains the following:\n\n| Column | Description |\n| --- | --- |\n| error | n/a |\n| recipient_id | The numeric identifier of the recipient generated automatically by the system |\n\n**Important:** Regardless of the success or failure of the validation, the `line` column always contains the line number where the related recipient record started within the request. According to the request example, the first recipient record starts at line *2* and the second recipient record at line *3*.\n\n**Do not** interpret the values in the `line` column as the recipient record counter.\n- The entry order in the response is not guaranteed, because the location is clearly defined by the line number.\n- Using line breaks within a single field or invalid text qualifiers may result in several records being parsed as one.\n\n### Recipient-specific Attachments\n\nIn typical use, attachments are added to a template are automatically included for all recipients. If recipient-specific attachments are required, it is possible to include them in the request to the mail stream endpoint.\n\nTo do so, send your request in JSON in the body, and change the `Content-Type` HTTP header to `application/json`.\n\n**Note:** It is possible to mix template and recipient attachments. If they share the same name, the recipient attachment overrides the template.\n\n**Important:** The content of the attachment must be base64-encoded.\n\n#### Request Example\n\n```json\n{\n   \"recipients\": [\n       {\n           \"fields\": {\n               \"EMAIL\": \"kaylee@example.com\",\n               \"FIRSTNAME\": \"Kaywinnet\"\n           },\n           \"attachments\": [\n               {\n                   \"name\": \"receipt.pdf\",\n                   \"content_type\": \"application/pdf\",\n                   \"content\": \"fVIOdiIMBLWUKFq807SGJaZyazE6zfBeBT4geniY2AlfVuEVJFRDha/Z4sBRJbHlFP5TqOBov8Ex530RC+q6Y8m3ai5VwPUpsQ2oD0CeRrJNGU+ZdDxPlzNXjaNA2endrukkKJyKyV4ueZxnE/GLQe+tkr1AxHQ4XJKH\"\n               }\n           ]\n       }\n   ]\n}\n```\n\n#### Response Example\n\n```json\n{\n    \"result\": [\n        {\n            \"recipient_id\": \"123456789\",\n            \"line\": 1\n        }\n    ]\n}\n```"
 					},
 					"response": []
 				}
@@ -3921,7 +3921,7 @@
 								"trigger"
 							]
 						},
-						"description": "Triggers a named external event for a specified contact.\n\n### Prerequisites\n- A custom contact field `externalId` must exist as the external identifier. To create one, use the #endpoint:whfR63G6cXXG6dpJJ endpoint or go to **Admin** > **Field Editor** > **New** in the <<appName>>.\n- The field identifier is required to create contacts with custom fields. List the field identifiers at the #endpoint:XHh2jTevR6RWCXXFA endpoint or go to **Admin** > **Field Editor** in the <<appName>>.\n\n**Notes**\n\n- <<objectMaximum>>\n- For further information about creating emails with transaction-specific content, see [Creating Transactional Emails](https://help.emarsys.com/hc/en-us/articles/115004090589#external_data_for_transactional_emails).\n- For the list of possible campaign related placeholders, see #docTextSection:64XeZpQwPy9JNh2EN.\n\n### Checking Results\nThere are two ways to check if the program was successfully triggered:\n- In the <<appName>>, go to the **Analysis** page of the program and verify that the number of emails sent out has increased.\n- Include a test customer in the contact list and check if it receives the relevant email.\n\n### Example Use Case\n\nWhen a customer clicks the \"I want to learn more about this product\" button in your webshop, call this endpoint to trigger the associated program, which sends out more information about your product."
+						"description": "Triggers a named external event for a specified contact.\n\n### Prerequisites\n- A custom contact field `externalId` must exist as the external identifier. To create one, use the Create a Field endpoint or go to **Admin** > **Field Editor** > **New** in the Emarsys application.\n- The field identifier is required to create contacts with custom fields. List the field identifiers at the List Available Fields endpoint or go to **Admin** > **Field Editor** in the Emarsys application.\n\n**Notes**\n\n- The maximum number of objects per request is 1000.\n- For further information about creating emails with transaction-specific content, see [Creating Transactional Emails](https://help.emarsys.com/hc/en-us/articles/115004090589#external_data_for_transactional_emails).\n\n### Checking Results\nThere are two ways to check if the program was successfully triggered:\n- In the Emarsys application, go to the **Analysis** page of the program and verify that the number of emails sent out has increased.\n- Include a test customer in the contact list and check if it receives the relevant email.\n\n### Example Use Case\n\nWhen a customer clicks the \"I want to learn more about this product\" button in your webshop, call this endpoint to trigger the associated program, which sends out more information about your product."
 					},
 					"response": []
 				},
@@ -4157,7 +4157,7 @@
 								"getchanges"
 							]
 						},
-						"description": "Exports the specified fields of contacts that have been modified within a certain time period. The contacts must belong to the specified form or API source to be included.\n\n**Important:** <<asyncOperationNote>>\n\n<<exportOptionsPlatformStatement>>\n- <<exportOptionsLocal>>\n- <<exportOptionsFtp>>\n\n**Implementation**\n\n<<exportImplementationPlatformStatement>>\n- <<exportImplementationPoll>>\n- <<exportImplementationCallback>>\n\n**Notes**\n- <<exportNotesIp>>\n- <<exportNotesAccount>>\n\n**Example**\n```csv\nuser_id;First Name;Last Name;E-Mail;Company\n8019189;user3;test_import;test1@emarsys.com;\n49036141;user3;test_import;test1@emarsys.com;\n50123406;user3;test_import;test1@emarsys.com;\n85600590;user3;test_import;test1@emarsys.com;\n```"
+						"description": "Exports the specified fields of contacts that have been modified within a certain time period. The contacts must belong to the specified form or API source to be included.\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier.\n\nThe results are saved as a CSV file that you can access in multiple ways.\n- Exports flagged as `local` are stored on the Emarsys server that you can download via WebDAV or an API call.\n- Exports flagged as `ftp` can be accessed via FTP.\n\n**Implementation**\n\nYou can implement this method as follows:\n- Poll the Check Export Status endpoint to track the export status. When done, access the file at the Download Export Data endpoint.\n- Set the `notification_url` parameter to implement a callback mechanism. When the export is ready, a request is sent to the provided URL with the same payload as the Check Export Status response.\n\n**Notes**\n- For security reasons, the (S)FTP server IP address must be whitelisted on our server first.\n- WebDAV access must be enabled first, and requires authentication to use. For a WebDAV account or (S)FTP access, contact Emarsys support.\n\n**Example**\n```csv\nuser_id;First Name;Last Name;E-Mail;Company\n8019189;user3;test_import;test1@emarsys.com;\n49036141;user3;test_import;test1@emarsys.com;\n50123406;user3;test_import;test1@emarsys.com;\n85600590;user3;test_import;test1@emarsys.com;\n```"
 					},
 					"response": []
 				},
@@ -4198,7 +4198,7 @@
 								"getcontacts"
 							]
 						},
-						"description": "Exports the specified fields of contacts from a contact list as a CSV file.\n\n**Important:** <<asyncOperationNote>>\n\n<<exportOptionsPlatformStatement>>\n- <<exportOptionsLocal>>\n- <<exportOptionsFtp>>\n- <<exportOptionsSftp>>\n- <<exportOptionsMail>>\n\n**Implementation**\n\n<<exportImplementationPlatformStatement>>\n- <<exportImplementationPoll>>\n- <<exportImplementationCallback>>\n\n**Notes**\n- <<exportNotesIp>>\n- <<exportNotesAccount>>\n\n**Example**\n\n```csv\nFirst Name;Last Name;E-mail;Opt-in\nFname_1;Lname_1;testuser@example.com;True\nFname_2;Lname_2;testuser@example.com;True\nFname_3;Lname_3;testuser@example.com;True\nFname_4;Lname_4;testuser@example.com;True\n```"
+						"description": "Exports the specified fields of contacts from a contact list as a CSV file.\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier.\n\nThe results are saved as a CSV file that you can access in multiple ways.\n- Exports flagged as `local` are stored on the Emarsys server that you can download via WebDAV or an API call.\n- Exports flagged as `ftp` can be accessed via FTP.\n- Exports flagged as `sftp` can be accessed via SFTP.\n- Exports flagged as `mail` are sent to the specified address when ready.\n\n**Implementation**\n\nYou can implement this method as follows:\n- Poll the Check Export Status endpoint to track the export status. When done, access the file at the Download Export Data endpoint.\n- Set the `notification_url` parameter to implement a callback mechanism. When the export is ready, a request is sent to the provided URL with the same payload as the Check Export Status response.\n\n**Notes**\n- For security reasons, the (S)FTP server IP address must be whitelisted on our server first.\n- WebDAV access must be enabled first, and requires authentication to use. For a WebDAV account or (S)FTP access, contact Emarsys support.\n\n**Example**\n\n```csv\nFirst Name;Last Name;E-mail;Opt-in\nFname_1;Lname_1;testuser@example.com;True\nFname_2;Lname_2;testuser@example.com;True\nFname_3;Lname_3;testuser@example.com;True\nFname_4;Lname_4;testuser@example.com;True\n```"
 					},
 					"response": []
 				},
@@ -4239,7 +4239,7 @@
 								"filter"
 							]
 						},
-						"description": "Exports the specified fields of contacts from a segment as a CSV file.\n\n**Important:** <<asyncOperationNote>>\n\n<<exportOptionsPlatformStatement>>\n- <<exportOptionsLocal>>\n- <<exportOptionsFtp>>\n- <<exportOptionsSftp>>\n- <<exportOptionsMail>>\n\n**Implementation**\n\n<<exportImplementationPlatformStatement>>\n- <<exportImplementationPoll>>\n- <<exportImplementationCallback>>\n\n**Notes**\n- <<exportNotesIp>>\n- <<exportNotesAccount>>\n\n**Example**\n\nAn example contact list export including first name, last name, email address and opt-in status results in the following CSV:\n```csv\nFirst Name;Last Name;E-mail;Opt-in\nFname_1;Lname_1;testuser@example.com;True\nFname_2;Lname_2;testuser@example.com;True\nFname_3;Lname_3;testuser@example.com;True\nFname_4;Lname_4;testuser@example.com;True\n```"
+						"description": "Exports the specified fields of contacts from a segment as a CSV file.\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier.\n\nThe results are saved as a CSV file that you can access in multiple ways.\n- Exports flagged as `local` are stored on the Emarsys server that you can download via WebDAV or an API call.\n- Exports flagged as `ftp` can be accessed via FTP.\n- Exports flagged as `sftp` can be accessed via SFTP.\n- Exports flagged as `mail` are sent to the specified address when ready.\n\n**Implementation**\n\nYou can implement this method as follows:\n- Poll the Check Export Status endpoint to track the export status. When done, access the file at the Download Export Data endpoint.\n- Set the `notification_url` parameter to implement a callback mechanism. When the export is ready, a request is sent to the provided URL with the same payload as the Check Export Status response.\n\n**Notes**\n- For security reasons, the (S)FTP server IP address must be whitelisted on our server first.\n- WebDAV access must be enabled first, and requires authentication to use. For a WebDAV account or (S)FTP access, contact Emarsys support.\n\n**Example**\n\nAn example contact list export including first name, last name, email address and opt-in status results in the following CSV:\n```csv\nFirst Name;Last Name;E-mail;Opt-in\nFname_1;Lname_1;testuser@example.com;True\nFname_2;Lname_2;testuser@example.com;True\nFname_3;Lname_3;testuser@example.com;True\nFname_4;Lname_4;testuser@example.com;True\n```"
 					},
 					"response": []
 				},
@@ -4280,7 +4280,7 @@
 								"getregistrations"
 							]
 						},
-						"description": "Exports the specified fields of contacts registered through an Emarsys form within the specified time period as a CSV file.\n\n**Tip:** If you want to export registrations from other sources, use the #endpoint:JwWpmHarGdrXBFoM3 endpoint.\n\n\n**Important:** <<asyncOperationNote>>\n\n<<exportOptionsPlatformStatement>>\n- <<exportOptionsLocal>>\n- <<exportOptionsFtp>>\n\n**Implementation**\n\n<<exportImplementationPlatformStatement>>\n- <<exportImplementationPoll>>\n- <<exportImplementationCallback>>\n\n**Notes**\n- <<exportNotesIp>>\n- <<exportNotesAccount>>\n\n**Example**\n```csv\nuser_id;First Name;Last Name;E-Mail;Company;last update\n135369573;user3;test_import;test1@emarsys.com;;\n171879718;user3;test_import;test1@emarsys.com;;\n183453150;user3;test_import;test1@emarsys.com;;\n188925627;user3;test_import;test1@emarsys.com;;\n```"
+						"description": "Exports the specified fields of contacts registered through an Emarsys form within the specified time period as a CSV file.\n\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier.\n\nThe results are saved as a CSV file that you can access in multiple ways.\n- Exports flagged as `local` are stored on the Emarsys server that you can download via WebDAV or an API call.\n- Exports flagged as `ftp` can be accessed via FTP.\n\n**Implementation**\n\nYou can implement this method as follows:\n- Poll the Check Export Status endpoint to track the export status. When done, access the file at the Download Export Data endpoint.\n- Set the `notification_url` parameter to implement a callback mechanism. When the export is ready, a request is sent to the provided URL with the same payload as the Check Export Status response.\n\n**Notes**\n- For security reasons, the (S)FTP server IP address must be whitelisted on our server first.\n- WebDAV access must be enabled first, and requires authentication to use. For a WebDAV account or (S)FTP access, contact Emarsys support.\n\n**Example**\n```csv\nuser_id;First Name;Last Name;E-Mail;Company;last update\n135369573;user3;test_import;test1@emarsys.com;;\n171879718;user3;test_import;test1@emarsys.com;;\n183453150;user3;test_import;test1@emarsys.com;;\n188925627;user3;test_import;test1@emarsys.com;;\n```"
 					},
 					"response": []
 				},
@@ -4321,7 +4321,7 @@
 								"getresponses"
 							]
 						},
-						"description": "Exports the specified fields of contacts who responded to an email within a certain time period as a CSV file.\n\n**Important:** <<asyncOperationNote>>\n\n<<exportOptionsPlatformStatement>>\n- <<exportOptionsLocal>>\n- <<exportOptionsFtp>>\n\n**Implementation**\n\n<<exportImplementationPlatformStatement>>\n- <<exportImplementationPoll>>\n- <<exportImplementationCallback>>\n\n**Notes**\n- <<exportNotesIp>>\n- <<exportNotesAccount>>\n\n**Example**\n\n```csv\nuser_id;First Name;Last Name;E-Mail;Campaign title;Link title;Url;source\n287705659;user3;test_import;test1@emarsys.com;VisualCMS_2015_04_09_10_05_03;;www.emarsys.com;click\n287705659;user3;test_import;test1@emarsys.com;RSS_2015_04_09_10_05_03;;www.google.com.com;click\n287705659;user3;test_import;test1@emarsys.com;AC_recurring_2015_04_09_10_05_03;;;open\n```"
+						"description": "Exports the specified fields of contacts who responded to an email within a certain time period as a CSV file.\n\n**Important:** This is an asynchronous operation, and may take a couple of minutes to complete. The request initiates a background job and returns an identifier.\n\nThe results are saved as a CSV file that you can access in multiple ways.\n- Exports flagged as `local` are stored on the Emarsys server that you can download via WebDAV or an API call.\n- Exports flagged as `ftp` can be accessed via FTP.\n\n**Implementation**\n\nYou can implement this method as follows:\n- Poll the Check Export Status endpoint to track the export status. When done, access the file at the Download Export Data endpoint.\n- Set the `notification_url` parameter to implement a callback mechanism. When the export is ready, a request is sent to the provided URL with the same payload as the Check Export Status response.\n\n**Notes**\n- For security reasons, the (S)FTP server IP address must be whitelisted on our server first.\n- WebDAV access must be enabled first, and requires authentication to use. For a WebDAV account or (S)FTP access, contact Emarsys support.\n\n**Example**\n\n```csv\nuser_id;First Name;Last Name;E-Mail;Campaign title;Link title;Url;source\n287705659;user3;test_import;test1@emarsys.com;VisualCMS_2015_04_09_10_05_03;;www.emarsys.com;click\n287705659;user3;test_import;test1@emarsys.com;RSS_2015_04_09_10_05_03;;www.google.com.com;click\n287705659;user3;test_import;test1@emarsys.com;AC_recurring_2015_04_09_10_05_03;;;open\n```"
 					},
 					"response": []
 				},
@@ -4362,7 +4362,7 @@
 								":exportId"
 							]
 						},
-						"description": "Returns information about an export, including its status, type, and output settings.\n\n**Note:** <<asyncOperationCheckNote>> You can initiate an export job and get the identifier at the following endpoints:\n- #endpoint:JwWpmHarGdrXBFoM3\n- #endpoint:ivuDn65KTmceKG8y7\n- #endpoint:Xz2bjP5Jm3AmgvRXc"
+						"description": "Returns information about an export, including its status, type, and output settings.\n\n**Note:** This endpoint tracks the status of an asynchronous operation using a job identifier. You can initiate an export job and get the identifier at the following endpoints:\n- Export Changed Contacts\n- Export a Contact List\n- Export a Segment"
 					},
 					"response": []
 				},
@@ -4410,7 +4410,7 @@
 								}
 							]
 						},
-						"description": "Returns a CSV file once the export job is finished. You must set the distribution method to `local` when initiating an export job at the following endpoints:\n- #endpoint:JwWpmHarGdrXBFoM3\n- #endpoint:ivuDn65KTmceKG8y7\n- #endpoint:Xz2bjP5Jm3AmgvRXc\n\n**Note:** It is recommended to use FTP or WebDAV to access exports. For configuration options, contact Emarsys support.\n\n**Important:** This endpoint returns a file instead of JSON. The *Content-Type* of the response is `text/csv`."
+						"description": "Returns a CSV file once the export job is finished. You must set the distribution method to `local` when initiating an export job at the following endpoints:\n- Export Changed Contacts\n- Export a Contact List\n- Export a Segment\n\n**Note:** It is recommended to use FTP or WebDAV to access exports. For configuration options, contact Emarsys support.\n\n**Important:** This endpoint returns a file instead of JSON. The *Content-Type* of the response is `text/csv`."
 					},
 					"response": []
 				}
@@ -4463,7 +4463,7 @@
 								":eventType"
 							]
 						},
-						"description": "Stores behavior events in the Emarsys database.\n\n**Note:** <<partnerApiNote>>\n\n**Important:** <<contentTypeCsvRequestNote>>\n\n### CSV Fields\n\n| Field | Type | Description | Comments |\n| --- | --- | --- | --- |\n| campaign_id | integer | The identifier that groups messages into meaningful categories for segmentation or reporting, such as an `email_id`, or a Suitekit `stream_id`. | Must be unique per customer. |\n| contact_id | integer | The internal contact identifier (`id`). For details, see #docTextSection:WzxTSxGPNbsq8zWjX. | |\n| event_time | date | ISO 8601 date format is recognized. | Time and time zone offset are optional. If there is no offset, Vienna time is assumed. |\n| message_id | integer | Used to create a connection between different events related to a single message within the scope of a campaign. It is needed to connect events of different types to the original message that was sent to the contact. For example, if a contact can receive the same email campaign twice, we need to be able to tell if an open event comes from the first or second email. In Emarsys, this would be the launch list ID. |"
+						"description": "Stores behavior events in the Emarsys database.\n\n**Note:** This endpoint is part of the Emarsys Partner API. As such, it is integration-specific and not intended for general use. Contact Emarsys support for details about integrations and our partner program.\n\n**Important:** This endpoint consumes a CSV file. Set the *Content-Type* HTTP header of the request to `text/csv`.\n\n### CSV Fields\n\n| Field | Type | Description | Comments |\n| --- | --- | --- | --- |\n| campaign_id | integer | The identifier that groups messages into meaningful categories for segmentation or reporting, such as an `email_id`, or a Suitekit `stream_id`. | Must be unique per customer. |\n| contact_id | integer | The internal contact identifier (`id`). | |\n| event_time | date | ISO 8601 date format is recognized. | Time and time zone offset are optional. If there is no offset, Vienna time is assumed. |\n| message_id | integer | Used to create a connection between different events related to a single message within the scope of a campaign. It is needed to connect events of different types to the original message that was sent to the contact. For example, if a contact can receive the same email campaign twice, we need to be able to tell if an open event comes from the first or second email. In Emarsys, this would be the launch list ID. |"
 					},
 					"response": []
 				}
@@ -4541,7 +4541,7 @@
 								}
 							]
 						},
-						"description": "Returns the records from a custom table in the Relational Data Service (RDS).\n\n<<featureAvailabilitySubscription>>\n\n**Note:** <<resultsNotPaged>> <<objectMaximum>>\n\n><<legacyIncompatibilityNoteQuery>>"
+						"description": "Returns the records from a custom table in the Relational Data Service (RDS).\n\nThis feature is only available for subscribed customers. For further information, contact your account manager.\n\n**Note:** Results are not paged. The maximum number of objects per request is 1000.\n\n>**Note:** Due to limitations of API specification languages, dynamic keys are not yet supported in query strings on the interactive demo page (**Try it out**)."
 					},
 					"response": []
 				},
@@ -4585,7 +4585,7 @@
 								"records"
 							]
 						},
-						"description": "Replaces a custom table with the provided records in the Relational Data Service (RDS).\n\n<<featureAvailabilitySubscription>>\n\n**Important:** This call deletes all previous records from the table.\n\n**Note:** <<objectMaximum>>"
+						"description": "Replaces a custom table with the provided records in the Relational Data Service (RDS).\n\nThis feature is only available for subscribed customers. For further information, contact your account manager.\n\n**Important:** This call deletes all previous records from the table.\n\n**Note:** The maximum number of objects per request is 1000."
 					},
 					"response": []
 				},
@@ -4629,7 +4629,7 @@
 								"records"
 							]
 						},
-						"description": "Updates records in a custom table in the Relational Data Service (RDS) that match the specified criteria.\n\n<<featureAvailabilitySubscription>>\n\n**Note:** <<objectMaximum>>"
+						"description": "Updates records in a custom table in the Relational Data Service (RDS) that match the specified criteria.\n\nThis feature is only available for subscribed customers. For further information, contact your account manager.\n\n**Note:** The maximum number of objects per request is 1000."
 					},
 					"response": []
 				},
@@ -4673,7 +4673,7 @@
 								"records"
 							]
 						},
-						"description": "Inserts the records into a custom table in the Relational Data Service (RDS). Records that violate any constraints on the table are ignored. For example, new records that have a conflicting primary key with an existing record are not inserted.\n\n<<featureAvailabilitySubscription>>\n\n**Note:** <<objectMaximum>>"
+						"description": "Inserts the records into a custom table in the Relational Data Service (RDS). Records that violate any constraints on the table are ignored. For example, new records that have a conflicting primary key with an existing record are not inserted.\n\nThis feature is only available for subscribed customers. For further information, contact your account manager.\n\n**Note:** The maximum number of objects per request is 1000."
 					},
 					"response": []
 				},
@@ -4718,7 +4718,7 @@
 								"remove"
 							]
 						},
-						"description": "Deletes the records from a custom table in the Relational Data Service (RDS) that match the specified criteria.\n\n<<featureAvailabilitySubscription>>\n\n**Note:** <<objectMaximum>>"
+						"description": "Deletes the records from a custom table in the Relational Data Service (RDS) that match the specified criteria.\n\nThis feature is only available for subscribed customers. For further information, contact your account manager.\n\n**Note:** The maximum number of objects per request is 1000."
 					},
 					"response": []
 				},
@@ -4763,7 +4763,7 @@
 								"upsert"
 							]
 						},
-						"description": "Inserts and updates records in a custom table in the Relational Data Service (RDS).\n\n<<featureAvailabilitySubscription>>\n\n**Notes**\n- <<objectMaximum>>\n- Table structures are not returned on this endpoint. Therefore, you must know the primary key column(s) defined in the table you are accessing."
+						"description": "Inserts and updates records in a custom table in the Relational Data Service (RDS).\n\nThis feature is only available for subscribed customers. For further information, contact your account manager.\n\n**Notes**\n- The maximum number of objects per request is 1000.\n- Table structures are not returned on this endpoint. Therefore, you must know the primary key column(s) defined in the table you are accessing."
 					},
 					"response": []
 				}
