@@ -3643,7 +3643,7 @@
 								}
 							]
 						},
-						"description": "Once an email is sent it typically generates one or more events, such as *bounce*, *open*, *click*, *spam complaint*, or *unsubscribe*. Analyze and track events to learn how recipients interact with your emails as well as to keep your contact database up-to-date.\n\n>**Note:** The maximum number of requests per hour is 1000.\n\nSending an email does not guarantee its delivery. A *bounce* event indicates that an email cannot be delivered. Query *bounce* and *sent* events to track whether the customer received the email.\n\n\n### Querying Events\nEach event type is available through its own resources. All resources work the same way and accept the same parameters.\n\n**Tip:** It is good industry practice to download event data at regular intervals (for example every 2 hours).\n\n#### Querying Sent Emails\n\nUse the *sent* event type to check a given timeframe if and when a mail was forwarded by the system to a specific recipient. Querying sent events is only offered to support a fast lookup option for a specific recipient. It is not intended for querying all sent recipients for a specific timeframe, because this information is avilable on user side.\n\n#### Querying Bounces\n\nQuerying bounces adds an additional column to the response, called `bounce_code`. This column indicates the encountered bounce type, as follows:\n\n| Bounce Type | Description |\n| --- | --- |\n| block | Block bounce |\n| hard | Hard bounce |\n| soft | Soft bounce |\n| suppressed | Sending suppression due to filtering |\n| invalid_address | Mails not sent due to an invalid email address |\n\n#### Querying Clicks\n\nReturns an additional `url` column that contains the target URL of the clicked link.\n\n#### Querying Unsubscribes\n\nReturns an additional `field_id` column that contains the identifier of the unsubscribe field. It is useful if more than one unsubscribe field is configured for the account (the default value is zero).\n\n\n### Connecting Event Data to Contact Data\nUse the `external_id` field to connect the mail event data to the contact data on your end. The content of the field is unique for each recipient on your side and will be delivered along with other fields when querying mail events.\n\nThe `external_id` field also allows you to uniquely identify a recipient, if the email address alone is not sufficient to do so.\n\nExample use cases include the following:\n- The same contact has multiple accounts in your environment.\n- The same contact registers for an account, unregisters and registers again with the same email address.\n\n#### Using External Identifiers\n1. Add the `external_id` field to the **Assigned Fields** of the respective email template.\n2. Pass the `external_id` together with other fields on appending data to the respective mail stream.\n\n\n## Response\n\n### Format\n\nEvents are returned in the following CSV format:\n\n| Column | Description |\n| --- | --- |\n| mail_stream_id | The identifier of the mail stream the mail was sent through. |\n| recipient_id | The identifier of the recipient to whom the mail was sent (the same as returned when posting the recipients). |\n| timestamp | The time of the event as a ISO8601 timestamp. |\n| email | The email address of the recipient. |\n| external_id | Additional identifier to be included in the recipient data for linking the mail event data to the recipient data on your end. |\n\n### Compression\n\nIt is good practice to use compression in order to save bandwidth and download data faster. If your system handles gzip compression, include the HTTP header `Accept-Encoding: gzip` in the request. If requested, the response is compressed and the HTTP header `Content-Encoding: gzip` is present in the response.\n\n### Examples\n\n#### Sent Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id\nTest_MX_V4,506801269562671104,2016-07-12 10:09:33.343+02,john.doe@example.com,\nTest_MX_V4,290628492129730560,2016-07-12 10:14:11.675+02,john.doe@example.com,\nAT_MV_V2,506801237568520192,2016-07-12 09:37:47.5+02,john.doe@example.com,\nAT_MV_V2,218570862205337600,2016-07-12 09:38:34.732+02,john.doe@example.com,\nAT_MV_V2,74455675136114688,2016-07-12 09:39:32.788+02,john.doe@example.com,\nAT_MV_V2,506801241527943168,2016-07-12 09:41:41.992+02,john.doe@example.com,\nAT_MV_V2,74455678726438912,2016-07-12 09:43:06.954+02,john.doe@example.com,\n```\n\n#### Bounce Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,bounce_code\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,block\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,suppressed\n```\n\n#### Open Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Click Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,url,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Unsubscribe Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,field_id\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,0\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,0\n```"
+						"description": "Once an email is sent it typically generates one or more events, such as *bounce*, *open*, *click*, *spam complaint*, or *unsubscribe*. Analyze and track events to learn how recipients interact with your emails as well as to keep your contact database up-to-date.\n\n>**Note:** The maximum number of requests per hour is 1000.\n\nSending an email does not guarantee its delivery. A *bounce* event indicates that an email cannot be delivered. Query *bounce* and *sent* events to track whether the customer received the email.\n\n\n### Querying Events\nEach event type is available through its own resources. All resources work the same way and accept the same parameters.\n\n**Tip:** It is good industry practice to download event data at regular intervals (for example every 2 hours).\n\n#### Querying Sent Emails\n\nUse the *sent* event type to check a given timeframe if and when a mail was forwarded by the system to a specific recipient. Querying sent events is only offered to support a fast lookup option for a specific recipient. It is not intended for querying all sent recipients for a specific timeframe, because this information is avilable on user side.\n\n#### Querying Bounces\n\nQuerying bounces adds an additional column to the response, called `bounce_code`. This column indicates the encountered bounce type, as follows:\n\n| Bounce Type | Description |\n| --- | --- |\n| block | Block bounce |\n| hard | Hard bounce |\n| soft | Soft bounce |\n| suppressed | Sending suppression due to filtering |\n| invalid_address | Mails not sent due to an invalid email address |\n\n#### Querying Clicks\n\nReturns an additional `url` column that contains the target URL of the clicked link.\n\n### Querying Unsubscribes\n\nReturns an additional `field_id` column that contains the identifier of the unsubscribe field. It is useful if more than one unsubscribe field is configured for the account (the default value is zero).\n\n\n### Connecting Event Data to Contact Data\nUse the `external_id` field to connect the mail event data to the contact data on your end. The content of the field is unique for each recipient on your side and will be delivered along with other fields when querying mail events.\n\nThe `external_id` field also allows you to uniquely identify a recipient, if the email address alone is not sufficient to do so.\n\nExample use cases include the following:\n- The same contact has multiple accounts in your environment.\n- The same contact registers for an account, unregisters and registers again with the same email address.\n\n#### Using External Identifiers\n1. Add the `external_id` field to the **Assigned Fields** of the respective email template.\n2. Pass the `external_id` together with other fields on appending data to the respective mail stream.\n\n\n## Response\n\n### Format\n\nEvents are returned in the following CSV format:\n\n| Column | Description |\n| --- | --- |\n| mail_stream_id | The identifier of the mail stream the mail was sent through. |\n| recipient_id | The identifier of the recipient to whom the mail was sent (the same as returned when posting the recipients). |\n| timestamp | The time of the event as a ISO8601 timestamp. |\n| email | The email address of the recipient. |\n| external_id | Additional identifier to be included in the recipient data for linking the mail event data to the recipient data on your end. |\n\n### Compression\n\nIt is good practice to use compression in order to save bandwidth and download data faster. If your system handles gzip compression, include the HTTP header `Accept-Encoding: gzip` in the request. If requested, the response is compressed and the HTTP header `Content-Encoding: gzip` is present in the response.\n\n### Examples\n\n#### Sent Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id\nTest_MX_V4,506801269562671104,2016-07-12 10:09:33.343+02,john.doe@example.com,\nTest_MX_V4,290628492129730560,2016-07-12 10:14:11.675+02,john.doe@example.com,\nAT_MV_V2,506801237568520192,2016-07-12 09:37:47.5+02,john.doe@example.com,\nAT_MV_V2,218570862205337600,2016-07-12 09:38:34.732+02,john.doe@example.com,\nAT_MV_V2,74455675136114688,2016-07-12 09:39:32.788+02,john.doe@example.com,\nAT_MV_V2,506801241527943168,2016-07-12 09:41:41.992+02,john.doe@example.com,\nAT_MV_V2,74455678726438912,2016-07-12 09:43:06.954+02,john.doe@example.com,\n```\n\n#### Bounce Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,bounce_code\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,block\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,suppressed\n```\n\n#### Open Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Click Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,url,recipient_user_agent,recipient_device,recipient_operating_system,recipient_ip\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,http://example.com,Firefox 36.0,Personal computer,Linux (Ubuntu),192.168.24.2\n```\n\n#### Unsubscribe Events\n```\nmail_stream_id,recipient_id,timestamp,email,external_id,field_id\nAT_Test1_20140312_GU,1000,2014-03-24T10:15:00+02,john.doe@example.com,4948335,0\nAT_Test4_20140312_GU,1001,2014-03-24T10:25:00+02,jane.doe@example.com,1877213,0\n```"
 					},
 					"response": []
 				},
@@ -4801,10 +4801,6 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "X-WSSE",
-								"value": "UsernameToken Username=\"\", PasswordDigest=\"\", Nonce=\"\", Created=\"\""
-							},
-							{
 								"key": "Accept",
 								"value": "application/json"
 							},
@@ -4813,10 +4809,7 @@
 								"value": "application/json"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
+						"body": {},
 						"url": {
 							"raw": "https://api.emarsys.net/api/v2/settings",
 							"protocol": "https",
@@ -4831,4 +4824,477 @@
 								"settings"
 							]
 						},
-						"description": "Returns the current settings of the specified customer account,
+						"description": "Returns the current settings of the specified customer account, such as timezone or name.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Administrator Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/query/:administratorId",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								"query",
+								":administratorId"
+							]
+						},
+						"description": "Returns the details of an admininstrator user of the customer’s account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "List Administrator Accounts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator"
+							]
+						},
+						"description": "Returns a list of administrator users of the customer’s account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Create an Administrator Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator"
+							]
+						},
+						"description": "Creates a new administrator account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Administrator Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/:administratorId/patch",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								":administratorId",
+								"patch"
+							]
+						},
+						"description": "Modifies the properties of an administrator account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Administrator Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/:administratorId/delete",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								":administratorId",
+								"delete"
+							]
+						},
+						"description": "Deletes an administrator account and transfers its rights to another administrator account."
+					},
+					"response": []
+				},
+				{
+					"name": "List Access Levels",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/getaccesslevels",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								"getaccesslevels"
+							]
+						},
+						"description": "Returns the list of available access levels for the customer’s account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Session for an Administrator Account",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/:administratorId/session",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								":administratorId",
+								"session"
+							]
+						},
+						"description": "Creates a session for administrators for logging in users from outside the Emarsys application, such as implementing Single Sign-On (SSO).\n\n**Note:** This feature is in the pilot phase and currently available for a limited number of clients only. If you are interested in participating, contact Emarsys support.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Interface Languages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/getinterfacelanguages",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								"getinterfacelanguages"
+							]
+						},
+						"description": "Returns the list of available user interface languages of the Emarsys application.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "List Administrator Start Pages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/administrator/getstartpages",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"administrator",
+								"getstartpages"
+							]
+						},
+						"description": "Lists the start pages where administrators are redirected to on login.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Keys",
+			"description": "",
+			"item": [
+				{
+					"name": "List Keys in the Keyring",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/keyring/keys",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"keyring",
+								"keys"
+							]
+						},
+						"description": "Lists all keys in the keyring for SFTP key-based authentication.\n\n**Note:** This feature is in the pilot phase and currently available for a limited number of clients only. If you are interested in participating, contact Emarsys support.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve a Key from the Keyring",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/settings/keyring/keys/:keyId",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"settings",
+								"keyring",
+								"keys",
+								":keyId"
+							]
+						},
+						"description": "Returns a key from the keyring for SFTP key-based authentication.\n\n**Note:** This feature is in the pilot phase and currently available for a limited number of clients only. If you are interested in participating, contact Emarsys support.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Key in the Keyring",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/settings/keyrings",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"settings",
+								"keyrings"
+							]
+						},
+						"description": "Creates and returns a new key in the keyring for SFTP key-based authentication.\n\n**Note:** This feature is in the pilot phase and currently available for a limited number of clients only. If you are interested in participating, contact Emarsys support.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Key from the Keyring",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/keyring/keys/:keyId/delete",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"v2",
+								"keyring",
+								"keys",
+								":keyId",
+								"delete"
+							]
+						},
+						"description": "Deletes a single key from the keyring.\n\n**Note:** This feature is in the pilot phase and currently available for a limited number of clients only. If you are interested in participating, contact Emarsys support.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
