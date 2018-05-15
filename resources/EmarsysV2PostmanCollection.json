@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "beb8d57c-e868-4221-b4b1-1bbc72b056b5",
 		"name": "Emarsys Developer Hub",
-		"description": "The Emarsys Developer Hubs provides guides, resources, use cases and interactive reference that helps you integrate with the Emarsys Marketing Platform to deliver personal customer interactions across email, mobile, social, SMS, and web.",
+		"description": "The Emarsys Developer Hub provides guides, resources, use cases and interactive reference that helps you integrate with the Emarsys Marketing Platform to deliver personal customer interactions across email, mobile, social, SMS, and web.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
