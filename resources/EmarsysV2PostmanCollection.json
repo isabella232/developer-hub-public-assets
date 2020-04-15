@@ -2863,7 +2863,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.emarsys.net/api/v2/file?folder={{folder}}",
+							"raw": "https://api.emarsys.net/api/v2/file/?folder={{folder}}",
 							"protocol": "https",
 							"host": [
 								"api",
