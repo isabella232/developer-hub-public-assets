@@ -96,7 +96,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.emarsys.net/api/v2/getdata",
+							"raw": "https://api.emarsys.net/api/v2/contact/getdata",
 							"protocol": "https",
 							"host": [
 								"api",
