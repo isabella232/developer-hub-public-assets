@@ -3996,6 +3996,48 @@
 			"description": "",
 			"item": [
 				{
+					"name": "List Programs",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-WSSE",
+								"value": "UsernameToken Username=\"\", PasswordDigest=\"\", Nonce=\"\", Created=\"\""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/ac/programs",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"api",
+								"v2",
+								"programresource"
+							],
+							"query": []
+						},
+						"description": "Returns a list of all available (not deleted) Automation Center programs for a customer."
+					},
+					"response": []
+				},
+				{
 					"name": "List Program Resources in Use",
 					"request": {
 						"method": "GET",
@@ -4018,7 +4060,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.emarsys.net/api/api/v2/programresource?service_id={{service_id}}&resource_id={{resource_id}}",
+							"raw": "https://api.emarsys.net/api/v2/programresource/?service_id={{service_id}}&resource_id={{resource_id}}",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -4043,6 +4085,90 @@
 							]
 						},
 						"description": "Returns a list of all external services and their resources available in the Automation Center for a customer."
+					},
+					"response": []
+				},
+				{
+					"name": "Abort a Program",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-WSSE",
+								"value": "UsernameToken Username=\"\", PasswordDigest=\"\", Nonce=\"\", Created=\"\""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/ac/programs/{program_id}/abort",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"api",
+								"v2",
+								"programresource"
+							],
+							"query": []
+						},
+						"description": "Abort the specified Automation Center program."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Program",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-WSSE",
+								"value": "UsernameToken Username=\"\", PasswordDigest=\"\", Nonce=\"\", Created=\"\""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://api.emarsys.net/api/v2/ac/programs/{program_id}/delete",
+							"protocol": "https",
+							"host": [
+								"api",
+								"emarsys",
+								"net"
+							],
+							"path": [
+								"api",
+								"api",
+								"v2",
+								"programresource"
+							],
+							"query": []
+						},
+						"description": "Deletes the specified Automation Center program."
 					},
 					"response": []
 				},
@@ -4656,7 +4782,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.emarsys.net/api/rds/connections/:connecionName/tables/<:tableName>/records",
+							"raw": "https://api.emarsys.net/api/rds/connections/:connectionName/tables/<:tableName>/records",
 							"protocol": "https",
 							"host": [
 								"api",
@@ -4859,7 +4985,7 @@
 								":administratorId"
 							]
 						},
-						"description": "Returns the details of an admininstrator user of the customer’s account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+						"description": "Returns the details of an admininstrator user of the customer's account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
 					},
 					"response": []
 				},
@@ -4892,7 +5018,7 @@
 								"administrator"
 							]
 						},
-						"description": "Returns a list of administrator users of the customer’s account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+						"description": "Returns a list of administrator users of the customer's account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
 					},
 					"response": []
 				},
@@ -5035,7 +5161,7 @@
 								"getaccesslevels"
 							]
 						},
-						"description": "Returns the list of available access levels for the customer’s account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
+						"description": "Returns the list of available access levels for the customer's account.\n\n**Important:** Access to administrative endpoints is restricted. If you need access, contact Emarsys support."
 					},
 					"response": []
 				},
