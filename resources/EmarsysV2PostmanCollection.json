@@ -33,7 +33,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://api.emarsys.net/api/v2/contact/query?{fieldId}={{{fieldId}}}&return={{return}}&excludeempty={{excludeempty}}&offset=0&limit=10000",
+							"raw": "https://api.emarsys.net/api/v2/contact/query/?{fieldId}={{{fieldId}}}&return={{return}}&excludeempty={{excludeempty}}&offset=0&limit=10000",
 							"protocol": "https",
 							"host": [
 								"api",
